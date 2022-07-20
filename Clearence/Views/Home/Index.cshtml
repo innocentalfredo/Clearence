@@ -1,0 +1,159 @@
+﻿@using Clearence.Models.Entities
+@model Student
+@{
+    ViewBag.Title = "Home Page";
+    ViewBag.Current = "Cust_Scheduler";
+
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h5 class="text-lg-left">
+            <text class="fa-2x" style="color:brown;">
+                @if (Request.IsAuthenticated)
+                {
+                    <b>@ViewBag.Location</b>
+                }
+            </text>
+        </h5>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+
+            @*@if (Request.IsAuthenticated && User.IsInRole("Registrar"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-green set-icon">
+                                <i class="fa fa-bars"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData1">@ViewBag.Complete</p>
+                                <p class="text-muted">Complete</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }*@
+
+            @if (Request.IsAuthenticated && (User.IsInRole("Admin")))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-blue set-icon">
+                                <i class="fa fa-bell-o"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData"></p>
+                                <p class="text-muted">Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+
+            else if (User.IsInRole("Admin"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-brown set-icon">
+                                <i class="fa fa-bell-o"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData33">0</p>
+                                <p class="text-muted">Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            @if (User.IsInRole("Registrar"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-brown set-icon">
+                                <i class="fa fa-bell-o"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData33">@ViewBag.rRequestdata</p>
+                                <p class="text-muted">Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            @if (User.IsInRole("Registrar"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-adjust"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rTasks">@ViewBag.rRequestdata</p>
+                                <p class="text-muted">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+
+            @if (User.IsInRole("Finance"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-blue set-icon">
+                                <i class="fa fa-bell-o"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData">@ViewBag.Finance</p>
+                                <p class="text-muted">Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+            @if (User.IsInRole("Dean"))
+            {
+                <a href="@Url.Action("Index", "Student")">
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <div class="panel panel-back noti-box">
+                            <span class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-bell-o"></i>
+                            </span>
+                            <div class="text-box">
+                                <p class="main-text" id="rData">@ViewBag.DeanRequestdata</p>
+                                <p class="text-muted">Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+        <hr />
+        @if (User.IsInRole("Student"))
+        {
+            using (Html.BeginForm("Index", "Home",  FormMethod.Post ))
+            {
+                @Html.AntiForgeryToken()
+                <fieldset>
+                   
+                    @*<input class="btn btn-lg btn-info btn-block center-block" type="submit" value="Login">*@
+                    <input type="submit" value="Generate Clearence Form Request" class="btn btn-lg btn-info btn-block center-block" />
+                </fieldset>
+            }
+
+             
+        }
+      
+
+     </div>
+</div>
+
+

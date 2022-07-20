@@ -1,0 +1,181 @@
+﻿@model IEnumerable<Clearence.Models.Entities.Student>
+
+@{
+    ViewBag.Title = "Student";
+    ViewBag.Current = "Student_Scheduler";
+
+}
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @if (User.IsInRole("Student"))
+        {
+            <h2>Request list ::<span class="badge pull-right">@Model.Count()</span></h2>
+
+        }
+        else
+        {
+            <h2>Student list ::<span class="badge pull-right">@Model.Count()</span></h2>
+
+        }
+
+    </div>
+    <div class="panel-body">
+      
+ 
+        <table class="table table-striped table-bordered table-hover genericDatatable">
+            <thead>
+                <tr>
+                    <th>
+                        RegNo
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Gender)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Course)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Department)
+                    </th>*@
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.Year)
+                    </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.DeanOfStudent)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsFinance)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsRegistrar)
+                    </th>
+                    @if (!User.IsInRole("Student"))
+                    {
+                        <th>
+                            Print
+                        </th>
+                    }
+                    <th class="text-center">Action</th>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RegistrationNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Gender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Department)
+                        </td>*@
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.Year)
+                        </td>*@
+                        @if (item.DeanOfStudent == true)
+                        {
+                            <td style="color: green;">Approved By Dean</td>
+                        }
+                        else
+                        {
+                            <td style="color: red;">Not Yet</td>
+                        }
+                        @if (item.IsFinance == true)
+                        {
+                            <td style="color: green;">Approved By Finance</td>
+                        }
+                        else
+                        {
+                            <td style="color: red;">Not Yet</td>
+                        }
+                        @if (item.IsRegistrar == true)
+                        {
+                            <td style="color: green;">Approved By Registrar</td>
+                        }
+                        else
+                        {
+                            <td style="color: red;">Not Yet</td>
+                        }
+
+                        @if (item.Iscomplete != false )
+                        {
+                            <td>
+                                <span class="btn btn-default" style="color: white;"><a href="@Url.Action("Print","Clearence" ,new {id = item.Id})">Print Clearence Form</a></span>
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+
+                        <td class="text-nowrap">
+                            @if (item.Iscomplete == false && User.IsInRole("Dean"))
+                            {
+                                <a href="@Url.Action("Create", "Clearence", new { id = item.Id })" class="btn btn-primary">Clearence</a>
+
+                            }
+
+
+
+                            @if (item.IsFinance == false && User.IsInRole("Finance"))
+                            {
+                                <a href="@Url.Action("Create", "Clearence", new { id = item.Id })" class="btn btn-primary">Clearence</a>
+
+                            }
+                            @if (item.IsRegistrar == false && User.IsInRole("Registrar"))
+                            {
+                                <a href="@Url.Action("Create", "Clearence", new { id = item.Id })" class="btn btn-primary">Clearence</a>
+
+                            }
+                            @*@if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+
+                            }*@
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-sm btn-danger" })
+
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<script src="~/dataTables/jquery.dataTables.js"></script>
+<script src="~/dataTables/dataTables.bootstrap.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.genericDatatable').DataTable({
+            //dom: 'Bfrtip',
+            lengthMenu: [
+                [10, 25, 50, -1],
+                ['10 rows', '25 rows', '50 rows', 'Show all']
+            ],
+        });
+    });
+</script>

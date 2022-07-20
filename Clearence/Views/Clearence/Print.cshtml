@@ -1,0 +1,374 @@
+﻿<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ClearenceForm</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        #invoice {
+            padding-top: 5px;
+            padding-left: 30px;
+        }
+
+        .invoice {
+            position: relative;
+            background-color: #FFF;
+            min-height: 680px;
+            padding: 10px
+        }
+
+            .invoice header {
+                float: left;
+                padding: 10px;
+                height: 300px;
+            }
+
+                .invoice header left {
+                    width: 25%;
+                }
+
+                .invoice header middle {
+                    width: 50%;
+                }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .invoice .company-details {
+            text-align: center;
+        }
+
+        .invoice .government_logo {
+            text-align: left
+        }
+
+        .invoice .brela_logo {
+            text-align: right;
+        }
+
+        .invoice .company-details .name {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .invoice .contacts {
+            margin-bottom: 10px
+        }
+
+        .invoice .invoice-to {
+            text-align: left
+        }
+
+            .invoice .invoice-to .to {
+                margin-top: 0;
+                margin-bottom: 0
+            }
+
+        .invoice .invoice-details {
+            text-align: right
+        }
+
+            .invoice .invoice-details .invoice-id {
+                margin-top: 0;
+            }
+
+        .invoice main {
+            padding-bottom: 1px
+        }
+
+            .invoice main .thanks {
+                margin-top: -100px;
+                font-size: 2em;
+                margin-bottom: 50px
+            }
+
+            .invoice main .notices {
+                padding-left: 6px;
+                border-left: 6px solid #3989c6
+            }
+
+                .invoice main .notices .notice {
+                    font-size: 1.2em
+                }
+
+        .invoice table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            margin-bottom: 10px
+        }
+
+            .invoice table td, .invoice table th {
+                padding: 7px;
+                background: #ffffff;
+                border-bottom: 1px dashed #3989c6
+            }
+
+            .invoice table th {
+                white-space: nowrap;
+                font-weight: 400;
+                font-size: 16px
+            }
+
+            .invoice table td h3 {
+                margin: 0;
+                font-weight: 400;
+                font-size: 1.2em
+            }
+
+            .invoice table .qty, .invoice table .total, .invoice table .unit {
+                text-align: left;
+            }
+
+            .invoice table .no {
+                color: #fff;
+                font-size: 1.6em;
+            }
+
+            .invoice table .unit {
+            }
+
+
+
+            .invoice table tbody tr:last-child td {
+                border: none
+            }
+
+            .invoice table tfoot td {
+                background: 0 0;
+                border-bottom: none;
+                white-space: nowrap;
+                text-align: right;
+                padding: 10px 20px;
+                font-size: 1.2em;
+                border-top: 1px solid #aaa
+            }
+
+            .invoice table tfoot tr:first-child td {
+                border-top: none
+            }
+
+            .invoice table tfoot tr:last-child td {
+                border-top: 1px solid #3989c6
+            }
+
+            .invoice table tfoot tr td:first-child {
+                border: none
+            }
+
+        .invoice footer {
+            width: 100%;
+            text-align: center;
+            color: #777;
+            border-top: 1px solid #aaa;
+            padding: 8px 0
+        }
+
+
+
+        .invoice footer {
+            position: absolute;
+            bottom: 10px;
+            page-break-after: avoid;
+        }
+
+        .invoice > div:last-child {
+            page-break-before: avoid;
+        }
+    </style>
+</head>
+<body>
+    <div id="invoice">
+
+
+        <div class="invoice overflow-auto">
+            <div>
+                <div class="col invoice-to">
+                    <table cellspacing="0" cellpadding="0" style="border:none">
+                        <tbody>
+                            <tr style="border:none">
+
+                                <td style="width:55%; text-align:center">
+                                    <h4 class="name">
+                                        <a target="_blank" href="https://lobianijs.com">
+                                            COLLEGE OF BUSINESS EDUCATION
+                                        </a>
+                                    </h4>
+                                    <div>DAR ES SALAAM/DODOMA/MWANZA/MBEYA</div>
+                                    <div> FEE CLEARENCE MEMO(FCM)</div>
+                                    <div>
+                                        <img src="~/Asset/Content/assets/img/cbe.png" class="img-responsive center-block" />
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table></table>
+                        </div>
+                        <div class="col-md-6">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="width:55%; text-align:center">
+                                            <h4 class="name">
+                                                <a target="_blank" href="https://lobianijs.com">
+                                                    Date: @DateTime.Now.Date
+                                                </a>
+                                            </h4>
+
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:55%; text-align:center">
+                                            <h4 class="name">
+                                                <a target="_blank" href="https://lobianijs.com">
+                                                    Registration Number:&nbsp; @ViewBag.RegN0
+                                                </a>
+                                            </h4>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <main>
+                    <hr style="border-top: 1px dashed #3989c6;" />
+                    <div class="col invoice-to">
+                        <table cellspacing="0" cellpadding="0" style="border:none">
+                            <tbody>
+
+                                <tr style="border:none">
+                                    <td style="border:none">
+                                        <font style="font-weight:bold"> FROM :</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Accounts,Dean of Student &amp;Library
+                                    </td>
+
+                                </tr>
+                                @*<div class="address"><font style="font-weight:bold">Tracking Number:</font> @Model.ApplicationInfo.TrackingNo &nbsp; &nbsp; <font style="font-weight:bold">Application Date:</font> @Model.ApplicationInfo.CreatedDate</div>*@
+                            </tbody>
+                        </table><br />
+                        <table cellspacing="0" cellpadding="0" style="border:none">
+                            <tbody>
+
+                                <tr style="border:none">
+                                    <td style="border:none">
+                                        <font style="font-weight:bold"> TO :</font>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        Registrar/Academic Officer
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table><br />
+                        <hr style="border-top: 1px solid #3989c6;" />
+                        <table cellspacing="0" cellpadding="0" style="border:none">
+                            <tbody>
+
+                                <tr style="border:none">
+                                    <td style="border: none">
+                                        <p>
+                                            This is to certify that, Mr/Mrs/Miss/Ms &nbsp;&nbsp;&nbsp;@ViewBag.FullName
+                                        </p>
+                                        <p>Who Studies <b>CERT/DIPL/BACH/PGD &amp; BA/ACC/MK/ICT/LM/BSE/PSM &amp; Masters</b> from the year..................to ............</p>
+                                        <p>Full time/Night College has paid college's full fees and returned College books and graduation Gown.</p>
+                                        
+                                    </td>
+
+                                </tr>
+                                @*<div class="address"><font style="font-weight:bold">Tracking Number:</font> @Model.ApplicationInfo.TrackingNo &nbsp; &nbsp; <font style="font-weight:bold">Application Date:</font> @Model.ApplicationInfo.CreatedDate</div>*@
+                            </tbody>
+                        </table>
+                    </div>
+                    @*<div class="col invoice-to">
+
+                        <hr style="border-top: 1px solid #3989c6;" />
+                       
+                        <table>
+
+
+                            <tbody>
+
+                            <tr style="border: none">
+                                <td style="border: none"><font style="font-weight: bold"> Name</font>..............................</td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold">Name</font>....................................................
+                                </td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold">Name</font>......................................................
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td style="border: none"><font style="font-weight: bold"> Signature</font>..............................</td>
+                                <td style="border: none"><font style="font-weight: bold"> Signature</font>..............................</td>
+                                <td style="border: none"><font style="font-weight: bold"> Signature</font>..............................</td>
+
+                            </tr>
+                            <tr>
+                                <td style="border: none"><font style="font-weight: bold"> Date</font>..............................</td>
+                                <td style="border: none"><font style="font-weight: bold"> Date</font>..............................</td>
+                                <td style="border: none"><font style="font-weight: bold"> Date</font>..............................</td>
+
+                            </tr>
+                            <tr>
+                                <td style="border: none">
+                                    <font style="font-weight: bold">For</font>&nbsp;<b>Director of Finance</b>
+                                </td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold">For</font>&nbsp;<b>Dean of Students</b>
+                                </td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold">For</font>&nbsp;<b>Library</b>
+
+</tr>
+                            <tr>
+                                <td style="border: none">
+                                    <font style="font-weight: bold"></font><b>Please Stamp</b>
+                                </td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold"></font><b>Please Stamp</b>
+                                </td>
+                                <td style="border: none">
+                                <font style="font-weight: bold"></font><b>Please Stamp</b>
+
+                            </tr>
+                            <tr>
+                                <td style="border: none">
+                                    <font style="font-weight: bold"></font><textarea rows="10"></textarea>
+                                </td>
+                                <td style="border: none">
+                                    <font style="font-weight: bold"></font><textarea rows="10"></textarea>
+                                </td>
+                                <td style="border: none">
+                                <font style="font-weight: bold"></font><textarea rows="10"></textarea>
+
+                            </tr>
+                            </tbody>
+
+                        </table>
+                       
+
+                    </div>*@
+                </main>
+
+            </div>
+            <br />
+        </div>
+    </div>
+</body>
+</html>
+
+
+

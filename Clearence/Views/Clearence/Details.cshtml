@@ -1,0 +1,66 @@
+﻿@model Clearence.Models.Entities.Clearence
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Clearence</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.RegistrationNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.RegistrationNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsFinance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsFinance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DeanOfStudent)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DeanOfStudent)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsRegistrar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsRegistrar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comment)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comment)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClearenceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClearenceDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

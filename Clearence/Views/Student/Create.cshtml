@@ -1,0 +1,90 @@
+﻿@model Clearence.Models.Entities.Student
+
+@{
+    ViewBag.Title = "Create";
+    ViewBag.Current = "Student_Scheduler";
+}
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Register Student</h2>
+    </div>
+    <div class="panel-body">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="">
+                <h4>Student</h4>
+                <hr/>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                
+            <div class="row">
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.RegistrationNumber, htmlAttributes: new { @class = "control-label " })
+                    @Html.EditorFor(model => model.RegistrationNumber, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.RegistrationNumber, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                         @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                 </div>
+
+                <div class="col-md-4">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                         @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                 </div>
+            </div><br/>
+                  <div class="row">
+                      <div class="col-md-4">
+                          @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label" })
+                               @Html.EnumDropDownListFor(model => model.Gender, htmlAttributes: new { @class = "form-control" })
+                              @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                       </div>
+
+                      <div class="col-md-4">
+                          @Html.LabelFor(model => model.Course, htmlAttributes: new { @class = "control-label" })
+                               @Html.DropDownList("Course", ViewBag.Course as SelectList, "-- Select Course --", htmlAttributes: new { @class = "form-control btn-block" })
+
+                              @Html.ValidationMessageFor(model => model.Course, "", new { @class = "text-danger" })
+                       </div>
+
+                      <div class="col-md-4">
+                          @Html.LabelFor(model => model.Department, htmlAttributes: new { @class = "control-label" })
+                               @Html.DropDownList("Department", ViewBag.Department as SelectList, "-- Select Department --", htmlAttributes: new { @class = "form-control btn-block" })
+                              @Html.ValidationMessageFor(model => model.Department, "", new { @class = "text-danger" })
+                       </div>
+                  </div>
+                <br/>
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.LabelFor(model => model.Year, htmlAttributes: new { @class = "control-label" })
+                             @Html.EditorFor(model => model.Year, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                     </div>
+                </div>
+
+               
+                <br/>
+                <div class="panel-footer">
+                    <div class="">
+                        <a href="@Url.Action("Index")" class="btn btn-info">Back to List</a>
+                        <input type="submit" value="Create" class="btn btn-default"/>
+                    </div>
+                </div>
+            </div>
+        }
+
+     
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
