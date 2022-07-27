@@ -1,12 +1,13 @@
 ﻿@model IdentitySample.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage your account";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>@ViewBag.Title.</h2>
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-4">
         <p>
             @(Model.HasPassword ? Html.ActionLink("Change your password", "ChangePassword") 
                 : Html.ActionLink("Pick a password", "SetPassword"))
@@ -73,5 +74,8 @@
                 </p>
             }
         }*@
+    </div>
+    <div class="col-md-4">
+        <a href="@Url.Action("Index","Home")" class="btn btn-success"><span class="fa fa-2x fa-hand-o-right">&nbsp;Procced</span></a>
     </div>
 </div>

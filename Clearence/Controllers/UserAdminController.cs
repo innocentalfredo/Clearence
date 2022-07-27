@@ -86,28 +86,36 @@ namespace IdentitySample.Controllers
         public async Task<ActionResult> Create()
         {
             //Get the list of Roles
-             ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k => k.Name != "Admin" && k.Name != "Dean"
-                 && k.Name !="Registrar" && k.Name !="SUPER ADMIN" && k.Name !="Finance").ToListAsync(), "Name", "Name");
+            if (!Request.IsAuthenticated)
+            {
+                ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k => k.Name != "Admin" && k.Name != "Dean"
+                    && k.Name != "Registrar" && k.Name != "SUPER ADMIN" && k.Name != "Finance").ToListAsync(), "Name", "Name");
+            }
+
+            if (Request.IsAuthenticated && User.IsInRole("Admin")|| User.IsInRole("SUPER ADMIN"))
+            {
+                ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k=>k.Name != "SUPER ADMIN").ToListAsync(), "Name", "Name");
+            }
             ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
             ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
             return View();
         }
+    
 
-        //
         // POST: /Users/Create
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(RegisterViewModel userViewModel, params string[] selectedRoles)
         {
-            if (ModelState.IsValid)
+            if (Request.IsAuthenticated && User.IsInRole("Admin"))
             {
-                var checkReGno = UserManager.Users.Any(x => x.RegistrationNumber == userViewModel.RegistrationNumber);
-                if (checkReGno == false)
-                {
+
 
                     var user = new ApplicationUser
                     {
                         UserName = userViewModel.Email,
+
                         Email = userViewModel.Email,
                         FirstName = userViewModel.FirstName,
                         LastName = userViewModel.LastName,
@@ -116,7 +124,7 @@ namespace IdentitySample.Controllers
                         Course = userViewModel.Course,
                         Department = userViewModel.Department
                     };
-                    var adminresult = await UserManager.CreateAsync(user, userViewModel.Password);
+                    var adminresult = await UserManager.CreateAsync(user, (userViewModel.Password));
                     //Add User to the selected Roles 
                     if (adminresult.Succeeded)
                     {
@@ -132,26 +140,72 @@ namespace IdentitySample.Controllers
                                 return View();
                             }
                         }
+
                     }
-                }
+                
                 else
-                    {
-                       ModelState.AddModelError("", @"Registration Number exist");
-                       // ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
-                        ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
-                        ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
-                        return View();
-
-                    }
-
-                    return RedirectToAction("Login","Account");
-
-
-                    ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+                {
+                     // ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
                     ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
                     ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
                     return View();
-                
+
+                }
+
+                return RedirectToAction("Login", "Account");
+
+            }
+
+            if (!Request.IsAuthenticated)
+            {
+                var checkReGNo = UserManager.Users.Any(x => x.RegistrationNumber == userViewModel.RegistrationNumber);
+                if (checkReGNo == false)
+                {
+
+                    var user = new ApplicationUser
+                    {
+                        UserName = userViewModel.RegistrationNumber,
+
+                        Email = userViewModel.Email,
+                        FirstName = userViewModel.FirstName,
+                        LastName = userViewModel.LastName,
+                        RegistrationNumber = userViewModel.RegistrationNumber,
+                        Gender = userViewModel.Gender,
+                        Course = userViewModel.Course,
+                        Department = userViewModel.Department
+                    };
+                    var adminresult = await UserManager.CreateAsync(user, (userViewModel.Password));
+                    //Add User to the selected Roles 
+                    if (adminresult.Succeeded)
+                    {
+                        if (selectedRoles != null)
+                        {
+                            var result = await UserManager.AddToRolesAsync(user.Id, selectedRoles);
+                            if (!result.Succeeded)
+                            {
+                                ModelState.AddModelError("", result.Errors.First());
+                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                                ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
+                                ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
+                                return View();
+                            }
+                        }
+
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", @"Registration Number exist");
+                    // ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+                    ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
+                    ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
+                    return View();
+
+                }
+
+                return RedirectToAction("Login", "Account");
+
+
             }
 
             return View();
@@ -201,7 +255,7 @@ namespace IdentitySample.Controllers
                     return HttpNotFound();
                 }
 
-                user.UserName = editUser.Email;
+                user.UserName = editUser.Username;
                 user.Email = editUser.Email;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);

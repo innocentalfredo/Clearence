@@ -13,7 +13,6 @@ using System.Web;
 
 namespace IdentitySample.Models
 {
-    // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
 
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {
@@ -36,10 +35,10 @@ namespace IdentitySample.Models
             manager.PasswordValidator = new PasswordValidator
             {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
+                RequireNonLetterOrDigit = false,
                 RequireDigit = true,
-                RequireLowercase = true,
-                RequireUppercase = true,
+                RequireLowercase = false,
+                RequireUppercase = false,
             };
             // Configure user lockout defaults
             manager.UserLockoutEnabledByDefault = true;
@@ -117,6 +116,9 @@ namespace IdentitySample.Models
             const string name = "admin@example.com";
             const string password = "Admin@123456";
             const string roleName = "Admin";
+            const string Name1 = "super@example.com";
+            const string password1 = "Super@123456";
+            const string roleName1 = "SUPER ADMIN";
 
             //Create Role Admin if it does not exist
             var role = roleManager.FindByName(roleName);
@@ -124,7 +126,13 @@ namespace IdentitySample.Models
                 role = new IdentityRole(roleName);
                 var roleresult = roleManager.Create(role);
             }
-
+            // create Role Super Admin if not exist
+            var role1 = roleManager.FindByName(roleName1);
+            if (role1 == null)
+            {
+                role1 = new IdentityRole(roleName1);
+                var roleresult1 = roleManager.Create(role1);
+            }
             var user = userManager.FindByName(name);
             if (user == null) {
                 user = new ApplicationUser { UserName = name, Email = name };
@@ -132,11 +140,26 @@ namespace IdentitySample.Models
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }
 
+            var user1 = userManager.FindByName(Name1);
+            if (user1 == null)
+            {
+                user1 = new ApplicationUser { UserName = Name1, Email = Name1 };
+                var result1 = userManager.Create(user, password1);
+                result1 = userManager.SetLockoutEnabled(user.Id, false);
+            }
+
             // Add user admin to Role Admin if not already added
             var rolesForUser = userManager.GetRoles(user.Id);
             if (!rolesForUser.Contains(role.Name)) {
                 var result = userManager.AddToRole(user.Id, role.Name);
             }
+            // Add user SuperAdmin to Role Superadmin if not already added
+            var rolesForUser1 = userManager.GetRoles(user.Id);
+            if (!rolesForUser1.Contains(role1.Name))
+            {
+                var result1 = userManager.AddToRole(user.Id, role1.Name);
+            }
+
         }
     }
 

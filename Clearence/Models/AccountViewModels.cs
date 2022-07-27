@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.Contracts;
 using Clearence.Models.Enums;
 using Newtonsoft.Json;
 
@@ -51,12 +52,11 @@ namespace IdentitySample.Models
 
     public class LoginViewModel
     {
-        [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
+        //[Required]
+        //[Display(Name = "Email")]
+        //[EmailAddress]
+        public string Username { get; set; }
+         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -68,6 +68,7 @@ namespace IdentitySample.Models
     public class RegisterViewModel
     {
         public string RegistrationNumber { get; set; }
+        public string Username { get; set; }
 
         [DisplayName("First Name")]
         public string FirstName { get; set; }
@@ -81,8 +82,8 @@ namespace IdentitySample.Models
         public  string Course { get; set; }
         public string Department { get; set; }
         public Gender Gender { get; set; }
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+      //  [Required]
+       // [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
