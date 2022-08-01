@@ -161,6 +161,7 @@
     <Content Include="Asset\Content\assets\img\4.png" />
     <Content Include="Asset\Content\assets\img\cbe.png" />
     <Content Include="Asset\Content\assets\img\find_user.png" />
+    <Content Include="Asset\Content\assets\img\logo2.jpg" />
     <Content Include="Asset\Content\assets\js\bootstrap.min.js" />
     <Content Include="Asset\Content\assets\js\custom.js" />
     <Content Include="Asset\Content\assets\js\dataTables\dataTables.bootstrap.css" />
