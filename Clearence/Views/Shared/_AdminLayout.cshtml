@@ -48,12 +48,12 @@
                 <li class="@(ViewBag.Current == "Student_Scheduler" ? "active" : "")">
                     <a href="javascript:;" data-toggle="collapse" data-target="#staff"><i class="fa fa-user"></i> Student <i class="fa fa-fw fa-caret-down"></i></a>
                     <ul class="collapse" id="staff">
-                        @if (User.IsInRole("Admin"))
+                        @*@if (User.IsInRole("Admin"))
                         {
                             <li>
                                 <a href="@Url.Action("Create", "Student")">Create New Student</a>
                             </li>
-                        }
+                        }*@
 
                         <li>
                             <a href="@Url.Action("Index", "Student")">List of Student</a>
@@ -140,7 +140,7 @@
                 @RenderBody()
                 @*<hr />*@
                 <footer style="bottom: 0; background-color:white;">
-                    <p>&copy; @DateTime.Now.Year - CBE :: CLEARENCE FORM MANAGEMENT INFORMATIOM SYSTEM</p>
+                    <p>&copy; @DateTime.Now.Year -CLEARENCE FORM MANAGEMENT INFORMATIOM SYSTEM</p>
                 </footer>
             </div>
             <!-- /.row -->

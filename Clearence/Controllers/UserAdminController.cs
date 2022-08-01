@@ -94,7 +94,7 @@ namespace IdentitySample.Controllers
 
             if (Request.IsAuthenticated && User.IsInRole("Admin")|| User.IsInRole("SUPER ADMIN"))
             {
-                ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k=>k.Name != "SUPER ADMIN").ToListAsync(), "Name", "Name");
+                ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k=>k.Name != "SUPER ADMIN" && k.Name != "Student").ToListAsync(), "Name", "Name");
             }
             ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
             ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
@@ -134,7 +134,7 @@ namespace IdentitySample.Controllers
                             if (!result.Succeeded)
                             {
                                 ModelState.AddModelError("", result.Errors.First());
-                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                                ViewBag.RoleId = new SelectList(await RoleManager.Roles.Where(k=>k.Name !="Student").ToListAsync(), "Name", "Name");
                                 ViewBag.Course = new SelectList(db.Courses, "Name", "Name");
                                 ViewBag.Department = new SelectList(db.Departments, "Name", "Name");
                                 return View();
@@ -152,7 +152,8 @@ namespace IdentitySample.Controllers
 
                 }
 
-                return RedirectToAction("Login", "Account");
+                    TempData["success"] = "Created Successfully";
+                return RedirectToAction("Create");
 
             }
 
